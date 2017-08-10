@@ -608,6 +608,15 @@ MP_NOINLINE int main_(int argc, char **argv) {
             path_items[0] = MP_OBJ_NEW_QSTR(qstr_from_strn(basedir, p - basedir));
             free(pathbuf);
 
+            mp_obj_list_get(mp_sys_path, &path_num, &path_items);
+            for (mp_uint_t i = 0; i < path_num; i++) {
+                if (MP_OBJ_IS_QSTR(path_items[i])) {
+                    mp_printf(&mp_plat_print, "path %d %q\n", i, MP_OBJ_QSTR_VALUE(path_items[i]));
+                } else if (MP_OBJ_IS_TYPE(path_items[i], &mp_type_str)) {
+                    mp_printf(&mp_plat_print, "path %d %s\n", i, mp_obj_str_get_str(path_items[i]));
+                }
+            }
+
             set_sys_argv(argv, argc, a);
             ret = do_file(argv[a]);
             break;
