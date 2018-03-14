@@ -201,4 +201,22 @@ typedef struct {
     .supports_qspi_writes = false, \
 }
 
+//TG-Techie added**//(warning untested)
+// Settings for the Winbond W25Q128JV 16mib SPI flash.
+// Datasheet: http://www.winbond.com/resource-files/w25q128jv%20dtr%20revb%2011042016.pdf
+#define W25Q128JV {\
+.total_size = (1 << 22), /* 16 MiB */ \
+.start_up_time_us = 10000, \
+.manufacturer_id = 0xef, \
+.memory_type = 0x70, \
+.capacity = 0x18, \
+.max_clock_speed_mhz = 133, \
+.has_sector_protection = false, \
+.supports_fast_read = true, \
+.supports_qspi = true, \
+.has_quad_enable = true, \
+.supports_qspi_writes = true, \
+}
+//might work
+
 #endif  // MICROPY_INCLUDED_ATMEL_SAMD_EXTERNAL_FLASH_DEVICES_H
